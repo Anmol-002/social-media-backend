@@ -1,7 +1,7 @@
 import UserModel from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-const cloudinary = require("cloudinary");
+import cloudinary from "cloudinary";
 
 // Register new user
 export const registerUser = async (req, res) => {
