@@ -19,7 +19,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://wisdomweaven.netlify.app",
   "Content-Type": "Authorization",
   credentials: true,
   optionSuccessStatus: 200,
