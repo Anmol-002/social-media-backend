@@ -1,9 +1,36 @@
 import UserModel from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+const cloudinary = require("cloudinary");
 
 // Register new user
 export const registerUser = async (req, res) => {
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.profilePicture, {
+    folder: "users",
+    //width: 150,
+    width: 400,
+    height: 450,
+    quality: 100,
+    crop: "scale",
+  });
+  const myCloud2 = await cloudinary.v2.uploader.upload(req.body.coverPicture, {
+    folder: "users",
+    //width: 150,
+    width: 400,
+    height: 450,
+    quality: 100,
+    crop: "scale",
+  });
+  const profilepic = {
+    public_id: myCloud.public_id,
+    url: myCloud.secure_url,
+  };
+  const coverpic = {
+    public_id: myCloud2.public_id,
+    url: myCloud2.secure_url,
+  };
+  req.body.profilePicture=profilepic;
+  req.body.coverPicture=coverpic;
   const salt = await bcrypt.genSalt(10);
   const hashedPass = await bcrypt.hash(req.body.password, salt);
   req.body.password = hashedPass;
