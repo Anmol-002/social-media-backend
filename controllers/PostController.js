@@ -1,11 +1,23 @@
 import PostModel from "../models/postModel.js";
 import UserModel from "../models/userModel.js";
 import mongoose from "mongoose";
-
+const cloudinary = require("cloudinary");
 
 // creating a post
 
 export const createPost = async (req, res) => {
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    folder: "posts",
+    //width: 150,
+    width: 400,
+    height: 450,
+    quality: 100,
+    crop: "scale",
+  });
+  req.body.avatar = {
+    public_id: myCloud.public_id,
+    url: myCloud.secure_url,
+  };
   const newPost = new PostModel(req.body);
 
   try {
