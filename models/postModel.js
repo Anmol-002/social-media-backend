@@ -9,16 +9,7 @@ const postSchema = mongoose.Schema(
       type: Date,
       default: new Date(),
     },
-    avatar: {
-      public_id: {
-        type: String,
-        required: true,
-      },
-      url: {
-        type: String,
-        required: true,
-      },
-    },
+    image: String,
     username: {
       type: String,
       required: true,
